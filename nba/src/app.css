@@ -1,4 +1,39 @@
-/* body {
-  background-image: url("https://images5.alphacoders.com/467/thumb-350-467394.jpg");
+* {
+  box-sizing: border-box;
+}
 
-} */
+.main-container {
+  border: solid black 1px;
+  width: 95%;
+  margin: 0 auto;
+}
+.player-div {
+  border: solid purple 1px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.tab-container {
+  border-radius: 15% 15% 0 0;
+  border: solid grey 1px;
+  margin: 2rem;
+  width: 250px;
+}
+.image-container {
+  justify-content: center;
+}
+.image-container img {
+  display: block;
+  margin: auto;
+}
+
+.info-container {
+  border: solid orange 1px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5% 0 5%;
+}
+
+.small-text {
+  width: 75%;
+}

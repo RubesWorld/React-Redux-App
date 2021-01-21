@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 //actions import
 import { getPlayer } from "../actions/actions";
 
+//import styles
+import { TextArea } from "@material-ui/core";
+
 const Info = ({
   PlayerID,
   YahooName,
@@ -37,6 +40,10 @@ const Info = ({
     setFilteredPlayer(newArray);
   }, [data, searchTerm]);
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
+
   if (error) {
     return <h2>We got an error: {error}</h2>;
   }
@@ -48,29 +55,31 @@ const Info = ({
   return (
     <>
       <div className="App">
-        <div className="main-container">
-          <SearchForm />
+        <SearchForm submitHandler={submitHandler} />
 
-          <div className="div">
-            {filteredPlayer.map((players, i) => {
-              return (
-                <div key={i}>
+        <div className="player-div">
+          {filteredPlayer.map((players, i) => {
+            return (
+              <div className="tab-container" key={i}>
+                <div className="image-container">
                   <img alt="nba player" src={players.PhotoUrl}></img>
+                </div>
+                <div className="info-container">
                   <h2>{players.YahooName}</h2>
                   <h2>Position: {players.Position}</h2>
-                  <div>
+                  <div className="small-text">
                     <p>Height: {players.Height} inches</p>
                     <p>Weight: {players.Weight} pounds</p>
                     <p>
                       Hometown: {players.BirthCity}, {players.BirthState}
                     </p>
                   </div>
-                  {/* <button onClick={handleClick}>New Player</button> */}
                 </div>
-              );
-            })}
-            {/* Close map */}
-          </div>
+                {/* <button onClick={handleClick}>New Player</button> */}
+              </div>
+            );
+          })}
+          {/* Close map */}
         </div>
       </div>
     </>
