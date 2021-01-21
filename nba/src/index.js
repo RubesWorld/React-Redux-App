@@ -3,16 +3,16 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 //import redux things
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
 
-const reducer = () => {
-  return {
-    title: "this is a dummy reducer",
-  };
-};
+//import thunk
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+//import reducer
+import { nbaReducer } from "./reducer/reducer";
+
+const store = createStore(nbaReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>
