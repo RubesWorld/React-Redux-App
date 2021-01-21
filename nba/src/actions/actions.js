@@ -16,14 +16,16 @@ export const FETCH_PLAYER_FAIL = "FETCH_PLAYER_FAIL";
 //   };
 // };
 
+const random = Math.floor(Math.random() * 9) + 1;
+
 export const getPlayer = () => (dispatch) => {
   dispatch({ type: FETCH_PLAYER_START });
   axios
     .get(
-      "https://api.sportsdata.io/v3/nba/scores/json/Player/20000572?key=4c1814384c664dc9ba29dad00b0b44ff"
+      `https://api.sportsdata.io/v3/nba/scores/json/Player/20000571?key=4c1814384c664dc9ba29dad00b0b44ff`
     )
     .then((res) => {
-      console.log("response:", res);
+      console.log("response:", res.data);
       dispatch({ type: FETCH_PLAYER_SUCCESS, payload: res.data });
     })
     .catch((err) => {
