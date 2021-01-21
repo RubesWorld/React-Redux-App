@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //redux imports
 import { connect } from "react-redux";
@@ -18,6 +18,7 @@ const Info = ({
   isFetching,
   error,
   getPlayer,
+  data,
 }) => {
   useEffect(() => {
     getPlayer();
@@ -39,18 +40,37 @@ const Info = ({
     <>
       <div className="App">
         <div className="main-container">
-          <div>
-            <img alt="nba player" src={PhotoUrl}></img>
-            <h2>{YahooName}</h2>
-            <h2>Position: {Position}</h2>
-            <div>
-              <p>Height: {Height} inches</p>
-              <p>Weight: {Weight} pounds</p>
-              <p>
-                {BirthCity}, {BirthState}
-              </p>
-            </div>
-            <button onClick={handleClick}>New Player</button>
+          <form
+          // onSubmit={}
+          >
+            <input
+              type="text"
+              placeholder="Search NBA Player..."
+              // onChange={}
+              // value={}
+            />
+            <button>Search</button>
+          </form>
+
+          <div className="div">
+            {data.map((players, i) => {
+              return (
+                <div key={i}>
+                  <img alt="nba player" src={players.PhotoUrl}></img>
+                  <h2>{players.YahooName}</h2>
+                  <h2>Position: {players.Position}</h2>
+                  <div>
+                    <p>Height: {players.Height} inches</p>
+                    <p>Weight: {players.Weight} pounds</p>
+                    <p>
+                      Repping: {players.BirthCity}, {players.BirthState}
+                    </p>
+                  </div>
+                  <button onClick={handleClick}>New Player</button>
+                </div>
+              );
+            })}
+            {/* Close map */}
           </div>
         </div>
       </div>
@@ -61,16 +81,7 @@ const Info = ({
 const mapStateToProps = (state) => {
   console.log("STATE INFO:", state);
   return {
-    PlayerID: state.PlayerID,
-    YahooName: state.YahooName,
-    Position: state.Position,
-    Height: state.Height, //inches
-    Weight: state.Weight, //pounds
-    BirthCity: state.BirthCity,
-    BirthState: state.BirthState,
-    PhotoUrl: state.PhotoUrl,
-    isFetching: state.isFetching,
-    error: state.error,
+    data: state.data,
   };
 };
 
