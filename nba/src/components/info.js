@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import SearchForm from "./SearchForm";
 
 //redux imports
 import { connect } from "react-redux";
@@ -18,15 +19,23 @@ const Info = ({
   isFetching,
   error,
   getPlayer,
+  searchTerm,
   data,
 }) => {
+  const [filteredPlayer, setFilteredPlayer] = useState(data);
+
   useEffect(() => {
     getPlayer();
   }, []);
 
-  const handleClick = () => {
-    getPlayer();
-  };
+  useEffect(() => {
+    let newArray = data.filter((specificPlayer) => {
+      return specificPlayer.YahooName.toLowerCase().includes(
+        searchTerm.toLowerCase()
+      );
+    });
+    setFilteredPlayer(newArray);
+  }, [data, searchTerm]);
 
   if (error) {
     return <h2>We got an error: {error}</h2>;
@@ -40,20 +49,10 @@ const Info = ({
     <>
       <div className="App">
         <div className="main-container">
-          <form
-          // onSubmit={}
-          >
-            <input
-              type="text"
-              placeholder="Search NBA Player..."
-              // onChange={}
-              // value={}
-            />
-            <button>Search</button>
-          </form>
+          <SearchForm />
 
           <div className="div">
-            {data.map((players, i) => {
+            {filteredPlayer.map((players, i) => {
               return (
                 <div key={i}>
                   <img alt="nba player" src={players.PhotoUrl}></img>
@@ -63,10 +62,10 @@ const Info = ({
                     <p>Height: {players.Height} inches</p>
                     <p>Weight: {players.Weight} pounds</p>
                     <p>
-                      Repping: {players.BirthCity}, {players.BirthState}
+                      Hometown: {players.BirthCity}, {players.BirthState}
                     </p>
                   </div>
-                  <button onClick={handleClick}>New Player</button>
+                  {/* <button onClick={handleClick}>New Player</button> */}
                 </div>
               );
             })}
@@ -82,6 +81,7 @@ const mapStateToProps = (state) => {
   console.log("STATE INFO:", state);
   return {
     data: state.data,
+    searchTerm: state.searchTerm,
   };
 };
 

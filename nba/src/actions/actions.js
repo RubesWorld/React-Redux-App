@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCH_PLAYER_START = "FETCH_PLAYER_START";
 export const FETCH_PLAYER_SUCCESS = "FETCH_PLAYER_SUCCESS";
 export const FETCH_PLAYER_FAIL = "FETCH_PLAYER_FAIL";
+export const SET_SEARCH_TERM = "SET_SEARCH_TERM";
 
 // export const getPlayer = () => {
 //   return (dispatch => {
@@ -36,4 +37,8 @@ export const getPlayer = () => (dispatch) => {
     .catch((err) => {
       dispatch({ type: FETCH_PLAYER_FAIL, payload: err.response.code });
     });
+};
+
+export const handleChanges = (e) => (dispatch) => {
+  dispatch({ type: SET_SEARCH_TERM, payload: e.target.value });
 };

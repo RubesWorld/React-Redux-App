@@ -4,6 +4,8 @@ const initialState = {
   data: [],
   isFetching: false,
   error: "",
+  YahooName: "",
+  searchTerm: "",
 };
 
 //   data: {
@@ -33,7 +35,6 @@ export const nbaReducer = (state = initialState, action) => {
         ...state,
         data: action.payload,
         isFetching: false,
-        error: "",
 
         // data: {
         //   PlayerID: action.payload.PlayerID,
@@ -52,6 +53,11 @@ export const nbaReducer = (state = initialState, action) => {
         ...state,
         isFetching: false,
         error: action.payload,
+      };
+    case "SET_SEARCH_TERM":
+      return {
+        ...state,
+        searchTerm: action.payload,
       };
     default:
       return state;
